@@ -6,11 +6,12 @@ A modern, responsive web application for buying and selling sustainable second-h
 
 ### Core Functionality
 - **User Authentication**: Secure JWT-based auth with email/password signup and login
-- **Product Management**: Full CRUD operations for product listings
+- **Product Management**: Full CRUD operations for product listings with image upload
 - **Real-time Search**: Live search with category filtering and sorting
 - **Shopping Cart**: Add/remove items with real-time counter in navbar
 - **Order Management**: Complete checkout process and order history
 - **User Dashboard**: Profile management and account settings
+- **Image Upload**: Drag-and-drop photo upload for product listings
 
 ### Technical Features
 - **Responsive Design**: Mobile-first design that works on all devices
@@ -39,8 +40,8 @@ A modern, responsive web application for buying and selling sustainable second-h
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd ecofinds
+   git clone https://github.com/Mainakgit0/coderz_ecofinds.git
+   cd coderz_ecofinds
    ```
 
 2. **Install dependencies**
@@ -50,8 +51,7 @@ A modern, responsive web application for buying and selling sustainable second-h
 
 3. **Set up environment variables**
    ```bash
-   # The .env file is already created with default values
-   # For production, update these values:
+   # Create .env file with these values:
    DATABASE_URL="file:./dev.db"
    JWT_SECRET="your-super-secret-jwt-key-change-this-in-production"
    ```
@@ -62,10 +62,10 @@ A modern, responsive web application for buying and selling sustainable second-h
    npx prisma generate
    
    # Run database migrations
-   npm run migrate
+   npx prisma db push
    
    # Seed the database with sample data
-   npm run seed
+   npx tsx prisma/seed.ts
    ```
 
 5. **Start the development server**
@@ -93,15 +93,17 @@ src/
 │   │   ├── users/         # User management
 │   │   ├── products/      # Product CRUD
 │   │   ├── cart/          # Shopping cart
-│   │   └── orders/        # Order management
+│   │   ├── orders/        # Order management
+│   │   └── upload/        # Image upload
 │   ├── auth/              # Auth pages (login/signup)
 │   ├── cart/              # Shopping cart page
 │   ├── dashboard/         # User dashboard
+│   ├── marketplace/       # Main marketplace page
 │   ├── my/listings/       # User's product listings
 │   ├── orders/            # Order history
 │   └── product/[id]/      # Product detail pages
 ├── components/            # Reusable UI components
-├── contexts/              # React contexts (Auth, Cart)
+├── contexts/              # React contexts (Auth, Cart, Theme)
 ├── lib/                   # Utility functions
 │   ├── auth.ts           # Authentication utilities
 │   ├── db.ts             # Database connection
@@ -116,9 +118,6 @@ npm run dev          # Start development server
 npm run build        # Build for production
 npm run start        # Start production server
 npm run lint         # Run ESLint
-npm run migrate      # Run Prisma migrations
-npm run seed         # Seed database with sample data
-npm run db:reset     # Reset database (⚠️ destructive)
 ```
 
 ## 🔐 Security Features
@@ -134,7 +133,7 @@ npm run db:reset     # Reset database (⚠️ destructive)
 
 ### Models
 - **User**: Authentication and profile data
-- **Product**: Product listings with categories
+- **Product**: Product listings with categories and detailed information
 - **Order**: Purchase records
 - **OrderItem**: Individual items in orders
 - **CartItem**: Shopping cart functionality
@@ -158,6 +157,7 @@ npm run db:reset     # Reset database (⚠️ destructive)
 ### Users
 - `GET /api/users/me` - Get current user
 - `PUT /api/users/me` - Update user profile
+- `DELETE /api/users/delete` - Delete user account
 
 ### Products
 - `GET /api/products` - List products (with search/filter)
@@ -173,6 +173,9 @@ npm run db:reset     # Reset database (⚠️ destructive)
 - `POST /api/orders` - Checkout (create order)
 - `GET /api/orders/me` - Get user's orders
 
+### Upload
+- `POST /api/upload` - Upload product images
+
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
@@ -185,13 +188,6 @@ npm run db:reset     # Reset database (⚠️ destructive)
 ```bash
 DATABASE_URL="postgresql://..."  # PostgreSQL connection string
 JWT_SECRET="your-production-secret-key"
-```
-
-## 🧪 Testing
-
-Run the test suite:
-```bash
-npm test
 ```
 
 ## 🤝 Contributing
