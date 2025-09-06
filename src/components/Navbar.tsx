@@ -32,15 +32,29 @@ export default function Navbar() {
 
           {/* Center Navigation */}
           <div className="hidden md:flex items-center space-x-6">
+            <Link
+              href="/marketplace"
+              className="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-green-700"
+              style={{color: '#333333'}}
+            >
+              Browse
+            </Link>
+            <Link
+              href="/about"
+              className="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-green-700"
+              style={{color: '#333333'}}
+            >
+              About
+            </Link>
+            <Link
+              href="/help"
+              className="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-green-700"
+              style={{color: '#333333'}}
+            >
+              Help
+            </Link>
             {user ? (
               <>
-                <Link
-                  href="/marketplace"
-                  className="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-green-700"
-                  style={{color: '#333333'}}
-                >
-                  Browse
-                </Link>
                 <Link
                   href="/my/listings"
                   className="text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg hover:opacity-90"
@@ -58,13 +72,6 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link
-                  href="/marketplace"
-                  className="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-green-700"
-                  style={{color: '#333333'}}
-                >
-                  Browse
-                </Link>
                 <Link
                   href="/auth/login"
                   className="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-green-700"
@@ -158,16 +165,32 @@ export default function Navbar() {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/90 backdrop-blur-md border-t" style={{borderColor: '#E0E0E0'}}>
+              <Link
+                href="/marketplace"
+                className="block px-3 py-2 rounded-md text-base font-medium transition-colors hover:text-green-700"
+                style={{color: '#333333'}}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Browse
+              </Link>
+              <Link
+                href="/about"
+                className="block px-3 py-2 rounded-md text-base font-medium transition-colors hover:text-green-700"
+                style={{color: '#333333'}}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About
+              </Link>
+              <Link
+                href="/help"
+                className="block px-3 py-2 rounded-md text-base font-medium transition-colors hover:text-green-700"
+                style={{color: '#333333'}}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Help
+              </Link>
               {user ? (
                 <>
-                  <Link
-                    href="/marketplace"
-                    className="block px-3 py-2 rounded-md text-base font-medium transition-colors hover:text-green-700"
-                    style={{color: '#333333'}}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Browse
-                  </Link>
                   <Link
                     href="/my/listings"
                     className="block px-3 py-2 rounded-md text-base font-medium transition-colors hover:text-green-700"
