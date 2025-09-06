@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String?
+  password  String
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  products  Product[]
+  orders    Order[]
+  cartItems CartItem[]
+  
+  @@map("users")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  category    Category
+  price       Float
+  imageUrl    String?
+  brand       String?
+  condition   String   @default("Good") // "Excellent" | "Good" | "Fair" | "Poor"
+  size        String?
+  color       String?
+  material    String?
+  yearPurchased Int?
+  yearOfManufacture Int?
+  location    String?
+  weight      String?
+  dimensions  String?
+  quantity    Int      @default(1)
+  originalPackaging Boolean @default(false)
+  manualIncluded Boolean @default(false)
+  workingCondition String?
+  status      String   @default("Available") // "Available" | "Sold"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  ownerId     String
+  owner       User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  orderItems  OrderItem[]
+  cartItems   CartItem[]
+  
+  @@map("products")
+}
+
+model Order {
+  id        String     @id @default(cuid())
+  total     Float
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  
+  // Relations
+  buyerId   String
+  buyer     User       @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+  items     OrderItem[]
+  
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  price     Float
+  quantity  Int    @default(1)
+  
+  // Relations
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  @@map("order_items")
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+  
+  // Relations
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, productId])
+  @@map("cart_items")
+}
+
+enum Category {
+  CLOTHING
+  ELECTRONICS
+  FURNITURE
+  BOOKS
+  ACCESSORIES
+  OTHER
+}
