@@ -1,8 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 
 export default function HelpPage() {
   const [formData, setFormData] = useState({
@@ -90,7 +88,6 @@ export default function HelpPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
       
       {/* Hero Section */}
       <section className="text-white py-20" style={{backgroundColor: '#2E7D32'}}>
@@ -321,7 +318,6 @@ export default function HelpPage() {
         </div>
       </section>
 
-      <Footer />
     </div>
   )
 }

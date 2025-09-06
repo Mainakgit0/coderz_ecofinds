@@ -1,12 +1,8 @@
 'use client'
 
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
       
       {/* Hero Section */}
       <section className="text-white py-20" style={{backgroundColor: '#2E7D32'}}>
@@ -155,7 +151,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Footer />
     </div>
   )
 }
